@@ -1,0 +1,8 @@
+{
+  "name": "Remix Division Task Register Transfer",
+  "description": "Takari Division Allocation, Monitoring \u0026 Follow-up register with Office and Personal workspaces, status workflows, and analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

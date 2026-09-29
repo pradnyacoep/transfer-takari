@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Tasks collection: validate title, id, and status
+    match /tasks/{taskId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.title is string 
+                            && request.resource.data.title.size() > 0
+                            && request.resource.data.title.size() <= 300
+                            && request.resource.data.status is string;
+      allow delete: if true;
+    }
+
+    // Shared configuration and personal metadata
+    match /meta/{metaId} {
+      allow read: if true;
+      allow write: if metaId == 'config' 
+                   || metaId == 'app_config' 
+                   || metaId == 'connection_test'
+                   || metaId.matches('^personal_meta_.*');
+    }
+
+    // Personal tasks: validate title and status
+    match /personal_tasks/{taskId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.title is string
+                            && request.resource.data.title.size() > 0
+                            && request.resource.data.status is string;
+      allow delete: if true;
+    }
+
+    // Test ping documents for connectivity verification
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Deny all other unmatched paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+

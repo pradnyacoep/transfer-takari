@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "Task": {
+      "title": "Task",
+      "description": "An office register task item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "priority": { "type": "string" },
+        "units": { "type": "array" },
+        "assigneeIds": { "type": "array" },
+        "pendingAt": { "type": "array" },
+        "tags": { "type": "array" },
+        "deadline": { "type": "string" },
+        "nextFollowUpDate": { "type": "string" },
+        "lastFollowUp": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "comments": { "type": "array" },
+        "history": { "type": "array" }
+      },
+      "required": ["id", "title", "status"]
+    },
+    "AppConfig": {
+      "title": "AppConfig",
+      "description": "Shared configurations including users, units, designations, tags",
+      "type": "object",
+      "properties": {
+        "users": { "type": "array" },
+        "units": { "type": "array" },
+        "tags": { "type": "array" },
+        "pendingOffices": { "type": "array" },
+        "designations": { "type": "array" },
+        "officeContacts": { "type": "object" },
+        "packages": { "type": "array" }
+      }
+    },
+    "PersonalTask": {
+      "title": "PersonalTask",
+      "description": "Personal workspace task item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "status"]
+    }
+  },
+  "firestore": {
+    "/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Division office tasks synchronized across all devices"
+    },
+    "/meta/{metaId}": {
+      "schema": "AppConfig",
+      "description": "System and organization configuration metadata"
+    },
+    "/personal_tasks/{taskId}": {
+      "schema": "PersonalTask",
+      "description": "Personal task items"
+    }
+  }
+}
